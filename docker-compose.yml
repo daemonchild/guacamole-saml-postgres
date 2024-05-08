@@ -12,7 +12,7 @@ networks:
     driver: bridge
 
 volumes:
-  postgres-guacamole-data:
+  postgresql-guacamole-data:
 
 # Define services
 services:
@@ -24,35 +24,39 @@ services:
       net_guacamole:
     restart: always
 
-  # postgres
-  postgres:
-    container_name: ${PREFIX}-postgres-guacamole
+  # postgresql
+  postgresql:
+    container_name: ${PREFIX}-postgresql-guacamole
     environment:
       PGDATA: /var/lib/postgresql/data/guacamole
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_USER: guacamole_user
-      
+      POSTGRES_DB: ${PSQL_DB}
+      POSTGRES_PASSWORD: ${PSQL_PASS}
+      POSTGRES_USER: ${PSQL_USER}
     #image: postgres:latest
-    build: ./postgres
+    build: ./postgresql
     networks:
       net_guacamole:
     restart: always
     volumes:
-    - postgres-guacamole-data:/var/lib/postgresql/data:Z
+    - postgresql-guacamole-data:/var/lib/postgresql/data:Z
 
   # guacamole
   guacamole:
     container_name: ${PREFIX}-guacamole
     depends_on:
     - guacd
-    - postgres
+    - postgresql
     environment:
       GUACD_HOSTNAME: guacd
-      POSTGRES_DATABASE: ${POSTGRES_DB}
-      POSTGRES_HOSTNAME: postgres
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_USER: ${POSTGRES_USER}
+      EXTENSION_PRIORITY: ${EXTENSION_PRIORITY}
+      POSTGRESQL_DATABASE: ${PSQL_DB}
+      POSTGRESQL_HOSTNAME: postgresql
+      POSTGRESQL_PASSWORD: ${PSQL_PASS}
+      POSTGRESQL_USER: ${PSQL_USER}
+      SAML_IDP_URL: ${SAML_IDP_URL}
+      SAML_IDP_METADATA_URL: ${SAML_IDP_METADATA_URL}
+      SAML_ENTITY_ID: ${SAML_ENTITY_ID}
+      SAML_CALLBACK_URL: ${SAML_CALLBACK_URL}
     image: guacamole/guacamole
     links:
     - guacd

@@ -8,6 +8,7 @@ You need:
 
 **Optional**: An nginx proxy with SSL. (Like this: https://github.com/daemonchild/nginx-guacamole-proxy)
 
+Copy the sample environment file to .env.
 Edit the .env file. You will need details from your SAML provider.
 
 

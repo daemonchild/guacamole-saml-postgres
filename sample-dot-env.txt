@@ -1,8 +1,10 @@
 PREFIX="my-guac-instance"
 
+EXTENSION_PRIORITY="*,SAML"
 POSTGRES_DB="guacamole_db"
 POSTGRES_USER="guacamole_user"
 POSTGRES_PASSWORD="ChooseYourOwnPasswordHere1234"
 SAML_IDP_URL="https://login.microsoftonline.com/[redacted]/saml2"
+SAML_IDP_METADATA_URL="https://login.microsoftonline.com/8df44562-dcd6-4ac7-a27a-7a13f4e5c97f/federationmetadata/2007-06/federationmetadata.xml?appid=4681255e-3ca9-458b-8248-f1b50598149f"
 SAML_ENTITY_ID="https://my-guac.my-domain.tld"
 SAML_CALLBACK_URL="https://my-guac.my-domain.tld"
