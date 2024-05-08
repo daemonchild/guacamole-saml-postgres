@@ -57,6 +57,7 @@ services:
       #SAML_IDP_METADATA_URL: ${SAML_IDP_METADATA_URL}
       SAML_ENTITY_ID: ${SAML_ENTITY_ID}
       SAML_CALLBACK_URL: ${SAML_CALLBACK_URL}
+      SAML_STRICT: false
     image: guacamole/guacamole
     links:
     - guacd
